@@ -13,6 +13,7 @@ struct TreeNode
 class Solution
 {
 public:
+    //reversing the temporary vector 
     vector<vector<int>> zigzagLevelOrder(TreeNode *root)
     {
 
@@ -41,6 +42,30 @@ public:
                 reverse(temp.begin(), temp.end());
             ans.push_back(temp);
             i++;
+        }
+        return ans;
+    }
+    
+    //without reversing the temporary vector
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(!root)return {};
+        vector<vector<int>>ans;
+        queue<TreeNode*>q;
+        q.push(root);
+        int dir=0;
+        while(!q.empty()){
+            int n=q.size();
+            vector<int>temp(n);
+            for(int i=0;i<n;i++){
+                TreeNode* fr=q.front();
+                q.pop();
+                if(dir) temp[n-1-i]=fr->val;
+                else temp[i]=fr->val;
+                if(fr->left)q.push(fr->left);
+                if(fr->right)q.push(fr->right);
+            }
+            dir=!dir;
+            ans.push_back(temp);
         }
         return ans;
     }
