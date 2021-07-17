@@ -48,3 +48,24 @@ public:
         return ans;
     }
 };
+
+
+-------or----------
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+        vector<vector<int>>road(n,vector<int>(n,0));
+        vector<int>vec(n,0);
+        for(int i=0;i<roads.size();i++){
+            road[roads[i][0]][roads[i][1]]=1;
+            road[roads[i][1]][roads[i][0]]=1;
+            vec[roads[i][0]]++;
+            vec[roads[i][1]]++;
+        }
+        int max_rank=INT_MIN;
+        for(int i=0;i<road.size();i++){
+            for(int j=i+1;j<road.size();j++){
+                int rank=vec[i]+vec[j]-road[i][j];
+                max_rank=max(max_rank,rank);
+            }
+        }
+        return max_rank;
+    }
