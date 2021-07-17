@@ -34,3 +34,27 @@ public:
         return ans;
     }
 };
+
+----or----
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        int n_rooms=rooms.size();
+        queue<int>q;
+        vector<bool>vec(n_rooms,false);
+        for(auto a:rooms[0])q.push(a);
+        vec[0]=true;
+        while(!q.empty()){
+            int n=q.size();
+            while(n--){
+                int fr=q.front();
+                q.pop();
+                vec[fr]=true;
+                for(auto a:rooms[fr]){
+                    if(!vec[a])q.push(a);
+                }
+            }
+        }
+        for(auto a:vec)if(!a)return false;
+        return true;
+    }
+    
+    
